@@ -8,36 +8,38 @@ import javax.persistence.Entity;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "game")
-public class Game {
+public class Game implements Serializable {
 
+    @Id
     @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Please supply a value for title")
-    @Max(value = 50, message = "Title must be less than 50 characters")
+    //@Max(value = 50, message = "Title must be less than 50 characters")
     private String title;
 
     @Column(name = "esrb_rating")
-    @NotEmpty(message = "Please supply a value")
-    @Max(value = 50, message = "Title must be less than 50 characters")
+    //@NotEmpty(message = "Please supply a value")
+    //@Max(value = 50, message = "Title must be less than 50 characters")
     private String esrbRating;
 
-    @NotEmpty(message = "Please supply a value")
-    @Max(value = 255, message = "Title must be less than 50 characters")
+    //@NotEmpty(message = "Please supply a value")
+    //@Max(value = 255, message = "Title must be less than 50 characters")
     private String description;
-    @NotEmpty(message = "Please supply a value")
-    @Column(precision = 5,scale = 2) // check this with TA
+    //@NotEmpty(message = "Please supply a value")
+    //@Column(precision = 5,scale = 2) // check this with TA
     private BigDecimal price; //must be between 5 and 2
 
-    @NotEmpty(message = "Please supply a value")
-    @Max(value = 50, message = "Must be less than 50 characters")
+    //@NotEmpty(message = "Please supply a value")
+    //@Max(value = 50, message = "Must be less than 50 characters")
     private String studio;
     private int quantity;
 
