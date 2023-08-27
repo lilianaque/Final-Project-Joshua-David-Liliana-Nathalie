@@ -14,6 +14,17 @@ import java.util.Objects;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "game")
 public class Game implements Serializable {
+    public Game() {
+    }
+    public Game(int id, String title, String esrbRating, String description, BigDecimal price, String studio,int quantity) {
+        this.id = id;
+        this.title = title;
+        this.esrbRating = esrbRating;
+        this.description = description;
+        this.price = price;
+        this.studio = studio;
+        this.quantity = quantity;
+    }
 
     @Id
     @Column(name = "game_id")
