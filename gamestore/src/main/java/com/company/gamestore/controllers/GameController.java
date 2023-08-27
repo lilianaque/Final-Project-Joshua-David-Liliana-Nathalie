@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +58,12 @@ public class GameController {
     //UPDATE
     @PutMapping("/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGameById(@PathVariable int id, @RequestBody Game game) {
-        gameRepo.save(game);
+    public void updateGameById(@PathVariable int id, @RequestBody @Valid Game game) {
+        if(gameRepo.existsById(id)){
+            gameRepo.save(game);
+        }else {
+            throw new IllegalArgumentException("Game with id " + id + " does not exist.");
+        }
     }
 
     //Delete

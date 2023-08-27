@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -22,25 +20,28 @@ public class Game implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Please supply a value for title")
-    //@Max(value = 50, message = "Title must be less than 50 characters")
+    @Size(max = 50)
+    @NotNull
     private String title;
-
+    @Size(max = 50)
+    @NotNull
     @Column(name = "esrb_rating")
-    //@NotEmpty(message = "Please supply a value")
-    //@Max(value = 50, message = "Title must be less than 50 characters")
     private String esrbRating;
 
-    //@NotEmpty(message = "Please supply a value")
-    //@Max(value = 255, message = "Title must be less than 50 characters")
+    @Size(max = 255)
+    @NotNull
     private String description;
-    //@NotEmpty(message = "Please supply a value")
-    //@Column(precision = 5,scale = 2) // check this with TA
-    private BigDecimal price; //must be between 5 and 2
 
-    //@NotEmpty(message = "Please supply a value")
-    //@Max(value = 50, message = "Must be less than 50 characters")
+    @NotNull
+    @DecimalMax("999.99")
+    @DecimalMin("0")
+    @Digits(integer = 5, fraction = 2)
+    private BigDecimal price; //must be between 5 and 2
+    @NotNull
+    @Size(max = 50)
     private String studio;
+
+    @NotNull
     private int quantity;
 
     public int getId() {
