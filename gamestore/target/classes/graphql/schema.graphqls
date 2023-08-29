@@ -1,3 +1,19 @@
-type Query {
-    dummy: String
+type Game {
+    id: ID!
+    title: String!
+    esrbRating: String!
+    description: String!
+    price: Float!
+    studio: String!
+    quantity: Int!
 }
+
+
+type Query {
+    games: [Game]!
+    gameById(id: ID!): Game
+    gamesByTitle(title: String!): [Game]!
+    gamesByStudio(studio: String!): [Game]!
+    gameByesrbRating(esrbRating: String!): [Game]!
+}
+

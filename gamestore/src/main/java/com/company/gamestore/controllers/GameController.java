@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +44,10 @@ public class GameController {
         return gameRepo.findByStudio(studio);
     }
 
-    @GetMapping("/games/ersb/{ersbRating}")
+    @GetMapping("/games/esrb/{esrbRating}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Game> getGamesByErsbRating(@PathVariable String ersbRating) {
-        return gameRepo.findByEsrbRating(ersbRating);
+    public List<Game> getGamesByErsbRating(@PathVariable String esrbRating) {
+        return gameRepo.findByEsrbRating(esrbRating);
     }
     @GetMapping("/games/title/{title}")
     @ResponseStatus(HttpStatus.OK)
@@ -55,9 +56,9 @@ public class GameController {
     }
 
     //UPDATE
-    @PutMapping("/games/{id}")
+    @PutMapping("/games/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGameById(@PathVariable int id, @RequestBody Game game) {
+    public void updateGameById(@RequestBody @Valid Game game) {
         gameRepo.save(game);
     }
 
