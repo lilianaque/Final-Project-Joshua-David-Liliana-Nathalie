@@ -1,6 +1,8 @@
 package com.company.gamestore.controllers;
 
 import com.company.gamestore.models.Game;
+import com.company.gamestore.models.Console;
+import com.company.gamestore.repositories.ConsoleRepository;
 import com.company.gamestore.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class graphQLController {
     @Autowired
     GameRepository gameRepo;
+
+    @Autowired
+    ConsoleRepository consoleRepository;
 
 
     //---------------GAMES-------------------//
@@ -43,5 +48,25 @@ public class graphQLController {
         return gameRepo.findByTitle(title);
     }
 
+    //CONSOLE
+    @QueryMapping
+    public List<Console> consoles(){
+        return consoleRepository.findAll();
+    }
 
+    @QueryMapping
+    public Console consoleById(@Argument int id){
+        Optional<Console> returnVal = consoleRepository.findById(id);
+        if(returnVal.isPresent()){
+            return returnVal.get();
+        }
+        else{
+            return null;
+        }
+    }
+
+    @QueryMapping
+    public List<Console> consoleByManufacturer(@Argument int manufacturer){
+        return consoleRepository.findByManufacturer(manufacturer);
+    }
 }
