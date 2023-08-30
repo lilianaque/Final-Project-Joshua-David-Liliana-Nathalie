@@ -33,6 +33,7 @@ public class ServiceLayer {
 
     private TaxRepository taxRepository;
 
+
     @Autowired
     public ServiceLayer(ConsoleRepository consoleRepository, GameRepository gameRepository,
                         TShirtsRepository tShirtsRepository, InvoiceRepository invoiceRepository,
@@ -164,7 +165,22 @@ public class ServiceLayer {
 
 
     //   Console API
+    public Console findConsoleById(int id){
+        Optional<Console> consoleOptional = consoleRepository.findById(id);
+        return consoleOptional.isPresent() ? consoleOptional.get() : null;
+    }
 
+    public List<Console> findAllConsoles(){
+        return consoleRepository.findAll();
+    }
+
+    public void updateConsole(Console console){
+        consoleRepository.save(console);
+    }
+
+    public void deleteConsole(int id){
+        consoleRepository.deleteById(id);
+    }
 
 
     //   Game API
