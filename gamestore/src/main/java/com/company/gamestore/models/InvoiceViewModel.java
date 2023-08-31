@@ -1,5 +1,7 @@
 package com.company.gamestore.models;
+
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -33,6 +35,7 @@ public class InvoiceViewModel {
     private BigDecimal unitPrice;
 
     //quantity must be 1
+    @Positive
     private int quantity;
 
     private BigDecimal subtotal;

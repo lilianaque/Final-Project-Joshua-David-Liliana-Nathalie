@@ -46,7 +46,7 @@ public class ServiceLayer {
         this.taxRepository = taxRepository;
     }
 
-    //   Invoice API
+    // Invoice API
 
     private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
 
@@ -129,10 +129,10 @@ public class ServiceLayer {
     }
 
     //   TShirt API
-    @Autowired
-    public ServiceLayer(TShirtsRepository tShirtsRepository) {
-        this.tShirtsRepository = tShirtsRepository;
-    }
+//    @Autowired
+//    public ServiceLayer(TShirtsRepository tShirtsRepository) {
+//        this.tShirtsRepository = tShirtsRepository;
+//    }
 
     public TShirt saveTShirt(TShirt tShirt) {
         return tShirtsRepository.save(tShirt);
@@ -236,7 +236,7 @@ public class ServiceLayer {
             }
         }
 
-        //The order must contain a valid state code.
+        //validate state code.
         if (taxRepository.findById(viewModel.getState()).isEmpty()) {
             throw new NotFoundException("Invalid State");
         }
@@ -250,7 +250,6 @@ public class ServiceLayer {
             Console console = consoleRepository.findById(invoice.getItemId()).get();
             unitPrice = console.getPrice();
 
-            //update item quantity
             console.setQuantity(console.getQuantity() - invoice.getQuantity());
             consoleRepository.save(console);
         }
@@ -259,7 +258,6 @@ public class ServiceLayer {
             Game game = gameRepository.findById(invoice.getItemId()).get();
             unitPrice = game.getPrice();
 
-            //update item quantity
             game.setQuantity(game.getQuantity() - invoice.getQuantity());
             gameRepository.save(game);
 
@@ -269,7 +267,6 @@ public class ServiceLayer {
             TShirt tShirt = tShirtsRepository.findById(invoice.getItemId()).get();
             unitPrice = tShirt.getPrice();
 
-            //update item quantity
             tShirt.setQuantity(tShirt.getQuantity() - invoice.getQuantity());
             tShirtsRepository.save(tShirt);
         }
