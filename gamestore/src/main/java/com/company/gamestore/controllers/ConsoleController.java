@@ -1,9 +1,9 @@
 package com.company.gamestore.controllers;
 
 import com.company.gamestore.models.Console;
-import com.company.gamestore.models.Game;
+
 import com.company.gamestore.repositories.ConsoleRepository;
-import com.company.gamestore.repositories.GameRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/consoles")
+//@RequestMapping("/consoles")
 public class ConsoleController {
 
     @Autowired
     ConsoleRepository consoleRepository;
 
     //CREATE
-    @PostMapping
+    @PostMapping("/consoles")
     @ResponseStatus(HttpStatus.CREATED)
     public Console createConsole(@RequestBody Console console) {
         return consoleRepository.save(console);
