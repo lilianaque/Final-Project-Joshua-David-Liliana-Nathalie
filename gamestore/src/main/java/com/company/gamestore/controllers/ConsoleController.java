@@ -62,8 +62,8 @@ public class ConsoleController {
 
     //BY MANUFACTURER
     @GetMapping("/consoles/manufacturer/{manufacturerId}")
-    public List<Console> getBooksByManufacturerId(@PathVariable int id) {
-        return consoleRepository.findByManufacturer(id);
+    public List<Console> getBooksByManufacturerId(@PathVariable int manufacturerId) {
+        return consoleRepository.findByManufacturer(manufacturerId);
     }
 
 

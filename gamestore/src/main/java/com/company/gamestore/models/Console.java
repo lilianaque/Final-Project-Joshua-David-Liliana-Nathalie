@@ -24,9 +24,10 @@ public class Console {
         return consoleID;
     }
 
-    public void setConsoleId(Integer consoleID) {
+    public void setConsoleId(int consoleID) {
         this.consoleID = consoleID;
     }
+
 
     public String getManufacturer() {
         return manufacturer;
