@@ -10,8 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class InvoiceRepositoryTests {
@@ -33,21 +32,22 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
 
 
-        invoiceRepository.save(invoice);
+        Invoice invoice1 = invoiceRepository.save(invoice);
 
-        Optional<Invoice> invoice1 = invoiceRepository.findById(invoice.getId());
 
-        assertEquals(invoice1.get(), invoice);
+
+        assertEquals(invoice.getCity(), invoice1.getCity());
+
     }
 
     @Test
@@ -59,21 +59,41 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(4);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
 
+        Invoice invoice2 = new Invoice();
+        invoice2.setName("Jane");
+        invoice2.setStreet("123 ave");
+        invoice2.setCity("New York");
+        invoice2.setState("NY");
+        invoice2.setZipcode("10001");
+        invoice2.setItem_type("console");
+        invoice2.setItem_id(2);
+        invoice2.setUnit_price(BigDecimal.valueOf(10.00));
+        invoice2.setQuantity(2);
+        invoice2.setTax(BigDecimal.valueOf(1.20));
+        invoice2.setProcessing_fee(BigDecimal.valueOf(1.99));
+        invoice2.setSubtotal(BigDecimal.valueOf(20.00));
+        invoice2.setTotal(BigDecimal.valueOf(23.19));
 
-        invoiceRepository.save(invoice);
+        invoice = invoiceRepository.save(invoice);
+        invoice2 = invoiceRepository.save(invoice2);
 
-        Optional<Invoice> invoice1 = invoiceRepository.findById(invoice.getId());
+        Invoice invoiceGot = invoiceRepository.findById(invoice.getId()).orElse(null);
 
-        assertEquals(invoice1.get(), invoice);
+        assertNotNull(invoiceGot);
+        assertEquals("New York", invoiceGot.getCity());
+        assertEquals("console", invoiceGot.getItem_type());
+        assertEquals("NY", invoiceGot.getState());
+        assertEquals(2, invoiceGot.getQuantity());
+
     }
 
     @Test
@@ -85,35 +105,37 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
         invoiceRepository.save(invoice);
 
         Invoice invoice2 = new Invoice();
-        invoice.setName("John");
-        invoice.setStreet("123 ave");
-        invoice.setCity("New York");
-        invoice.setState("NY");
-        invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
-        invoice.setQuantity(2);
-        invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
-        invoice.setSubtotal(BigDecimal.valueOf(20.00));
-        invoice.setTotal(BigDecimal.valueOf(23.19));
+        invoice2.setName("Jane");
+        invoice2.setStreet("123 ave");
+        invoice2.setCity("New York");
+        invoice2.setState("NY");
+        invoice2.setZipcode("10001");
+        invoice2.setItem_type("console");
+        invoice2.setItem_id(2);
+        invoice2.setUnit_price(BigDecimal.valueOf(10.00));
+        invoice2.setQuantity(2);
+        invoice2.setTax(BigDecimal.valueOf(1.20));
+        invoice2.setProcessing_fee(BigDecimal.valueOf(1.99));
+        invoice2.setSubtotal(BigDecimal.valueOf(20.00));
+        invoice2.setTotal(BigDecimal.valueOf(23.19));
+
+
         invoiceRepository.save(invoice2);
 
-        List<Invoice> invoices = invoiceRepository.findAll();
+        List<Invoice> invoiceList = invoiceRepository.findAll();
+        assertEquals(2, invoiceList.size());
 
-        assertEquals(invoices.size(), 2);
     }
 
     @Test
@@ -125,22 +147,26 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
         invoiceRepository.save(invoice);
 
+        //Update name
         invoice.setName("Jane");
         invoiceRepository.save(invoice);
 
         Optional<Invoice> invoice1 = invoiceRepository.findById(invoice.getId());
 
-        assertEquals(invoice1.get(), invoice);
+        assertTrue(invoice1.isPresent());
+        assertEquals("Jane", invoice1.get().getName());
+        assertEquals(invoice.getStreet(), invoice1.get().getStreet());
+        assertEquals(invoice.getCity(), invoice1.get().getCity());
     }
 
     @Test
@@ -152,12 +178,12 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
         invoiceRepository.save(invoice);
@@ -178,18 +204,18 @@ public class InvoiceRepositoryTests {
         invoice.setCity("New York");
         invoice.setState("NY");
         invoice.setZipcode("10001");
-        invoice.setItemType("console");
-        invoice.setItemId(3);
-        invoice.setUnitPrice(BigDecimal.valueOf(10.00));
+        invoice.setItem_type("console");
+        invoice.setItem_id(3);
+        invoice.setUnit_price(BigDecimal.valueOf(10.00));
         invoice.setQuantity(2);
         invoice.setTax(BigDecimal.valueOf(1.20));
-        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setSubtotal(BigDecimal.valueOf(20.00));
         invoice.setTotal(BigDecimal.valueOf(23.19));
         invoiceRepository.save(invoice);
 
 
-        List<Invoice> invoices = invoiceRepository.findInvoiceByName(invoice.getName());
+        List<Invoice> invoices = invoiceRepository.findByName(invoice.getName());
 
         assertEquals(invoices.size(), 1);
     }

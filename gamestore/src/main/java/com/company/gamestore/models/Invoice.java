@@ -173,10 +173,11 @@ public class Invoice {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Invoice)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
         return id == invoice.id && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_type, invoice.item_type) && Objects.equals(item_id, invoice.item_id) && Objects.equals(quantity, invoice.quantity) && Objects.equals(unit_price, invoice.unit_price) && Objects.equals(subtotal, invoice.subtotal) && Objects.equals(tax, invoice.tax) && Objects.equals(processing_fee, invoice.processing_fee) && Objects.equals(total, invoice.total);
     }
+
 
     @Override
     public int hashCode() {
