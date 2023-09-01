@@ -37,7 +37,7 @@ public class TShirtController {
     @GetMapping("/t_shirts/id/{id}")
     @ResponseStatus(HttpStatus.OK)
     public TShirt getTShirtById(@PathVariable int id) {
-        return serviceLayer.findTShirt(id);
+        return serviceLayer.findTShirtById(id);
     }
 
     @GetMapping("/t_shirts")

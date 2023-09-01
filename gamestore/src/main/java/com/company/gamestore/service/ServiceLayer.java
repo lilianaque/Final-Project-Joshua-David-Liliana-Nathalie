@@ -123,6 +123,10 @@ public class ServiceLayer {
         return toReturn;
     }
 
+    //Save invoice
+    public Invoice saveInvoice(Invoice invoice) {
+        return invoiceRepo.save(invoice);
+    }
     //Build invoice model
     private InvoiceViewModel buildInvoiceViewModel(Invoice invoice) {
 
@@ -181,7 +185,7 @@ public class ServiceLayer {
         return tshirtRepo.save(tShirt);
     }
 
-    public TShirt findTShirt(int id) {
+    public TShirt findTShirtById(int id) {
         Optional<TShirt> tShirtOptional = tshirtRepo.findById(id);
         return tShirtOptional.isPresent() ? tShirtOptional.get() : null;
     }
@@ -208,6 +212,9 @@ public class ServiceLayer {
 
 
     //   Console API
+    public Console saveConsole(Console console) {
+        return consoleRepo.save(console);
+    }
     public Console findConsoleById(int id) {
         Optional<Console> consoleOptional = consoleRepo.findById(id);
         return consoleOptional.isPresent() ? consoleOptional.get() : null;
@@ -228,7 +235,27 @@ public class ServiceLayer {
 
     //   Game API
 
+    public Game saveGame(Game game) {
+        return gameRepo.save(game);
+    }
+    public Game findCById(int id) {
+        Optional<Game> gameOptional = gameRepo.findById(id);
+        return gameOptional.isPresent() ? gameOptional.get() : null;
+    }
 
+    public List<Game> findAllGames() {
+        return gameRepo.findAll();
+    }
+
+    public void updateGame(Game game) {
+        gameRepo.save(game);
+    }
+
+    public void removeGame(int id) {
+        gameRepo.deleteById(id);
+    }
+
+    //   Validate Order
     public void validateOrderRequest(InvoiceViewModel viewModel) {
 
         String itemType = viewModel.getItemType();
