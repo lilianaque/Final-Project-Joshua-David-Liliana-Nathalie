@@ -2,39 +2,67 @@ package com.company.gamestore.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "invoice_id")
-public class Invoice implements Serializable {
-    @Id
-    @Column(name = "invoice_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Table(name = "invoice")
+public class Invoice {
 
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="invoice_id")
+    private int id;
+
+    public Invoice(String name, String street, String city, String state, String zipcode, String item_type, Integer item_id, Integer quantity, BigDecimal unit_price, BigDecimal subtotal, BigDecimal tax, BigDecimal processing_fee, BigDecimal total) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
+        this.quantity = quantity;
+        this.unit_price = unit_price;
+        this.subtotal = subtotal;
+        this.tax = tax;
+        this.processing_fee = processing_fee;
+        this.total = total;
+    }
+    @NotEmpty(message = "Name cannot be blank")
     private String name;
+    @NotEmpty(message = "Street cannot be blank")
     private String street;
+    @NotEmpty(message = "City cannot be blank")
     private String city;
+    @NotEmpty(message = "State cannot be blank")
     private String state;
+    @NotEmpty(message = "Zipcode cannot be blank")
     private String zipcode;
-    private String itemType;
-    private Integer itemId;
-    private BigDecimal unitPrice;
+    @NotEmpty(message = "Item type cannot be blank")
+    private String item_type;
+    private Integer item_id;
     private Integer quantity;
+    private BigDecimal unit_price;
     private BigDecimal subtotal;
     private BigDecimal tax;
-    private BigDecimal processingFee;
+    private BigDecimal processing_fee;
     private BigDecimal total;
 
-    public Integer getId() {
+    public Invoice() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -78,28 +106,20 @@ public class Invoice implements Serializable {
         this.zipcode = zipcode;
     }
 
-    public String getItemType() {
-        return itemType;
+    public String getItem_type() {
+        return item_type;
     }
 
-    public void setItemType(String itemType) {
-        this.itemType = itemType;
+    public void setItem_type(String item_type) {
+        this.item_type = item_type;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public Integer getItem_id() {
+        return item_id;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
     }
 
     public Integer getQuantity() {
@@ -108,6 +128,14 @@ public class Invoice implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(BigDecimal unit_price) {
+        this.unit_price = unit_price;
     }
 
     public BigDecimal getSubtotal() {
@@ -126,12 +154,12 @@ public class Invoice implements Serializable {
         this.tax = tax;
     }
 
-    public BigDecimal getProcessingFee() {
-        return processingFee;
+    public BigDecimal getProcessing_fee() {
+        return processing_fee;
     }
 
-    public void setProcessingFee(BigDecimal processingFee) {
-        this.processingFee = processingFee;
+    public void setProcessing_fee(BigDecimal processing_fee) {
+        this.processing_fee = processing_fee;
     }
 
     public BigDecimal getTotal() {
@@ -142,54 +170,16 @@ public class Invoice implements Serializable {
         this.total = total;
     }
 
-    public Invoice(){}
-
-    public Invoice(String name, String street, String city, String state, String zipcode, String itemType, Integer itemId, BigDecimal unitPrice, Integer quantity, BigDecimal subtotal, BigDecimal tax, BigDecimal processingFee, BigDecimal total) {
-        this.name = name;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.itemType = itemType;
-        this.itemId = itemId;
-        this.unitPrice = unitPrice;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
-        this.tax = tax;
-        this.processingFee = processingFee;
-        this.total = total;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Invoice)) return false;
         Invoice invoice = (Invoice) o;
-        return Objects.equals(id, invoice.id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(itemType, invoice.itemType) && Objects.equals(itemId, invoice.itemId) && Objects.equals(unitPrice, invoice.unitPrice) && Objects.equals(quantity, invoice.quantity) && Objects.equals(subtotal, invoice.subtotal) && Objects.equals(tax, invoice.tax) && Objects.equals(processingFee, invoice.processingFee) && Objects.equals(total, invoice.total);
+        return id == invoice.id && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_type, invoice.item_type) && Objects.equals(item_id, invoice.item_id) && Objects.equals(quantity, invoice.quantity) && Objects.equals(unit_price, invoice.unit_price) && Objects.equals(subtotal, invoice.subtotal) && Objects.equals(tax, invoice.tax) && Objects.equals(processing_fee, invoice.processing_fee) && Objects.equals(total, invoice.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, street, city, state, zipcode, itemType, itemId, unitPrice, quantity, subtotal, tax, processingFee, total);
-    }
-
-    @Override
-    public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", itemType='" + itemType + '\'' +
-                ", itemId=" + itemId +
-                ", unitPrice=" + unitPrice +
-                ", quantity=" + quantity +
-                ", subtotal=" + subtotal +
-                ", tax=" + tax +
-                ", processingFee=" + processingFee +
-                ", total=" + total +
-                '}';
+        return Objects.hash(id, name, street, city, state, zipcode, item_type, item_id, quantity, unit_price, subtotal, tax, processing_fee, total);
     }
 }

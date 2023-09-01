@@ -1,43 +1,19 @@
 package com.company.gamestore.models;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class InvoiceViewModel {
-
-    private Integer id;
-
-    @NotEmpty
-    private String name;
-
-    @NotEmpty
+    private String customerName;
     private String street;
-
-    @NotEmpty
     private String city;
-
-    @NotEmpty
-    @Size(min = 2, max = 2)
     private String state;
-    @NotEmpty
-    @Size(min = 5, max = 5)
     private String zipcode;
-
-    @NotEmpty
     private String itemType;
+    private Integer itemId;
+    private Integer quantity;
 
-    @NotEmpty
-    private int itemId;
-
-    private BigDecimal unitPrice;
-
-    //quantity must be 1
-    @Positive
-    private int quantity;
-
+    //May Delete
     private BigDecimal subtotal;
 
     private BigDecimal tax;
@@ -45,12 +21,14 @@ public class InvoiceViewModel {
     private BigDecimal processingFee;
 
     private BigDecimal total;
+    private BigDecimal unitPrice;
+
 
     public InvoiceViewModel() {
     }
 
-    public InvoiceViewModel(String name, String street, String city, String state, String zipcode, String itemType, int itemId, BigDecimal unitPrice, int quantity, BigDecimal subtotal, BigDecimal tax, BigDecimal processingFee, BigDecimal total) {
-        this.name = name;
+    public InvoiceViewModel(String customerName, String street, String city, String state, String zipcode, String itemType, int itemId, BigDecimal unitPrice, int quantity, BigDecimal subtotal, BigDecimal tax, BigDecimal processingFee, BigDecimal total) {
+        this.customerName = customerName;
         this.street = street;
         this.city = city;
         this.state = state;
@@ -65,20 +43,52 @@ public class InvoiceViewModel {
         this.total = total;
     }
 
-    public int getId() {
-        return id;
+    public BigDecimal getSubtotal() {
+        return subtotal;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public String getName() {
-        return name;
+    public BigDecimal getTax() {
+        return tax;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+
+    public BigDecimal getProcessingFee() {
+        return processingFee;
+    }
+
+    public void setProcessingFee(BigDecimal processingFee) {
+        this.processingFee = processingFee;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getStreet() {
@@ -121,92 +131,19 @@ public class InvoiceViewModel {
         this.itemType = itemType;
     }
 
-    public int getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public BigDecimal getTax() {
-        return tax;
-    }
-
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
-    }
-
-    public BigDecimal getProcessingFee() {
-        return processingFee;
-    }
-
-    public void setProcessingFee(BigDecimal processingFee) {
-        this.processingFee = processingFee;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InvoiceViewModel that = (InvoiceViewModel) o;
-        return itemId == that.itemId && quantity == that.quantity && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipcode, that.zipcode) && Objects.equals(itemType, that.itemType) && Objects.equals(unitPrice, that.unitPrice) && Objects.equals(subtotal, that.subtotal) && Objects.equals(tax, that.tax) && Objects.equals(processingFee, that.processingFee) && Objects.equals(total, that.total);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getStreet(), getCity(), getState(), getZipcode(), getItemType(), getItemId(), getUnitPrice(), getQuantity(), getSubtotal(), getTax(), getProcessingFee(), getTotal());
-    }
-
-    @Override
-    public String toString() {
-        return "InvoiceViewModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                ", itemType='" + itemType + '\'' +
-                ", itemId=" + itemId +
-                ", unitPrice=" + unitPrice +
-                ", quantity=" + quantity +
-                ", subtotal=" + subtotal +
-                ", tax=" + tax +
-                ", processingFee=" + processingFee +
-                ", total=" + total +
-                '}';
     }
 }
