@@ -77,7 +77,7 @@ public class ServiceLayerTest {
 
     }
 
-//    @Test(expected = IllegalArgumentException.class)
+
     @Test
     public void shouldThrowExceptionWhenNotEnoughGamesInStock() {
         InvoiceViewModel ivm = new InvoiceViewModel();
@@ -96,7 +96,7 @@ public class ServiceLayerTest {
     }
 
 
-//}
+
 
     @Test
     public void shouldFindInvoiceByName(){
