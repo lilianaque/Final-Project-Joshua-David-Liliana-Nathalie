@@ -1,5 +1,6 @@
 package com.company.gamestore.service;
 
+import com.company.gamestore.Exceptions.NotFoundException;
 import com.company.gamestore.models.*;
 import com.company.gamestore.repositories.*;
 import com.company.gamestore.models.InvoiceViewModel;
@@ -77,21 +78,22 @@ public class ServiceLayerTest {
     }
 
 //    @Test(expected = IllegalArgumentException.class)
-//    public void shouldThrowExceptionWhenNotEnoughGamesInStock() {
-//        InvoiceViewModel ivm = new InvoiceViewModel();
-//        ivm.setItemType("Game");
-//        ivm.setItemId(1);
-//        ivm.setQuantity(15);  // Requested quantity is more than available
-//
-//        Game game = new Game();
-//        game.setId(1);
-//        game.setPrice(BigDecimal.valueOf(10.00));
-//        game.setQuantity(10);  // Only 10 games available
-//
-//        when(gameRepo.findById(1)).thenReturn(Optional.of(game));
-//
-//        serviceLayer.createInvoice(ivm);
-//    }
+    @Test
+    public void shouldThrowExceptionWhenNotEnoughGamesInStock() {
+        InvoiceViewModel ivm = new InvoiceViewModel();
+        ivm.setItemType("Game");
+        ivm.setItemId(1);
+        ivm.setQuantity(15);  // Requested quantity is more than available
+
+        Game game = new Game();
+        game.setId(1);
+        game.setPrice(BigDecimal.valueOf(10.00));
+        game.setQuantity(10);  // Only 10 games available
+
+        when(gameRepo.findById(1)).thenReturn(Optional.of(game));
+
+        assertThrows(IllegalArgumentException.class, () -> service.createInvoice(ivm));
+    }
 
 
 //}
@@ -102,13 +104,13 @@ public class ServiceLayerTest {
         invoice.setItem_id(1);
         invoice.setCity("New York");
         invoice.setQuantity(5);
-        invoice.setName("Josh");
+        invoice.setName("John");
         invoice.setItem_id(1);
         invoice.setItem_type("type");
         invoice.setState("NY");
         invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setTax(BigDecimal.valueOf(12.99));
-        invoice.setStreet("fake st");
+        invoice.setStreet("123 ave");
         invoice.setSubtotal(BigDecimal.valueOf(100.45));
         invoice.setTotal(BigDecimal.valueOf(113.15));
         invoice.setZipcode("11111");
@@ -118,22 +120,22 @@ public class ServiceLayerTest {
         expectedIvm.setItemId(1);
         expectedIvm.setCity("New York");
         expectedIvm.setQuantity(5);
-        expectedIvm.setCustomerName("Josh");
+        expectedIvm.setCustomerName("John");
         expectedIvm.setItemId(2);
         expectedIvm.setItemType("type");
         expectedIvm.setState("NY");
         expectedIvm.setProcessingFee(BigDecimal.valueOf(1.99));
         expectedIvm.setTax(BigDecimal.valueOf(12.99));
-        expectedIvm.setStreet("fake st");
+        expectedIvm.setStreet("123 ave");
         expectedIvm.setSubtotal(BigDecimal.valueOf(100.45));
         expectedIvm.setTotal(BigDecimal.valueOf(113.15));
         expectedIvm.setZipcode("11111");
         expectedIvm.setUnitPrice(BigDecimal.valueOf(12.99));
 
-        when(invoiceRepo.findByName("Josh")).thenReturn(Arrays.asList(invoice));
+        when(invoiceRepo.findByName("John")).thenReturn(Arrays.asList(invoice));
 
         // Act
-        List<InvoiceViewModel> result = service.findInvoiceByName("Josh");
+        List<InvoiceViewModel> result = service.findInvoiceByName("John");
 
         // Assert
         assertFalse(result.isEmpty(), "Expected non-empty result");
@@ -146,13 +148,12 @@ public class ServiceLayerTest {
         invoice.setItem_id(1);
         invoice.setCity("New York");
         invoice.setQuantity(5);
-        invoice.setName("Josh");
-        invoice.setItem_id(1);
+        invoice.setName("John");
         invoice.setItem_type("type");
         invoice.setState("NY");
         invoice.setProcessing_fee(BigDecimal.valueOf(1.99));
         invoice.setTax(BigDecimal.valueOf(12.99));
-        invoice.setStreet("fake st");
+        invoice.setStreet("123 ave");
         invoice.setSubtotal(BigDecimal.valueOf(100.45));
         invoice.setTotal(BigDecimal.valueOf(113.15));
         invoice.setZipcode("11111");
@@ -162,17 +163,17 @@ public class ServiceLayerTest {
         expectedIvm.setItemId(1);
         expectedIvm.setCity("New York");
         expectedIvm.setQuantity(5);
-        expectedIvm.setCustomerName("Josh");
-        expectedIvm.setItemId(1);
-        expectedIvm.setItemType("type");
-        expectedIvm.setState("NY");
-        expectedIvm.setProcessingFee(BigDecimal.valueOf(1.99));
-        expectedIvm.setTax(BigDecimal.valueOf(12.99));
-        expectedIvm.setStreet("fake st");
-        expectedIvm.setSubtotal(BigDecimal.valueOf(100.45));
-        expectedIvm.setTotal(BigDecimal.valueOf(113.15));
-        expectedIvm.setZipcode("11111");
-        expectedIvm.setUnitPrice(BigDecimal.valueOf(12.99));
+       expectedIvm.setCustomerName("John");
+       expectedIvm.setItemId(1);
+       expectedIvm.setItemType("type");
+       expectedIvm.setState("NY");
+       expectedIvm.setProcessingFee(BigDecimal.valueOf(1.99));
+       expectedIvm.setTax(BigDecimal.valueOf(12.99));
+       expectedIvm.setStreet("123 ave");
+       expectedIvm.setSubtotal(BigDecimal.valueOf(100.45));
+       expectedIvm.setTotal(BigDecimal.valueOf(113.15));
+       expectedIvm.setZipcode("11111");
+       expectedIvm.setUnitPrice(BigDecimal.valueOf(12.99));
 
         when(invoiceRepo.findById(1)).thenReturn(Optional.of(invoice));
 
@@ -190,33 +191,33 @@ public class ServiceLayerTest {
         invoice.setItemId(1);
         invoice.setCity("New York");
         invoice.setQuantity(5);
-        invoice.setCustomerName("Josh");
-        invoice.setItemId(1);
+        invoice.setCustomerName("John");
+        invoice.setItemId(2);
         invoice.setItemType("type");
         invoice.setState("NY");
         invoice.setProcessingFee(BigDecimal.valueOf(1.99));
         invoice.setTax(BigDecimal.valueOf(12.99));
-        invoice.setStreet("fake st");
+        invoice.setStreet("123 ave");
         invoice.setSubtotal(BigDecimal.valueOf(100.45));
         invoice.setTotal(BigDecimal.valueOf(113.15));
         invoice.setZipcode("11111");
         invoice.setUnitPrice(BigDecimal.valueOf(12.99));
 
         InvoiceViewModel expectedIvm = new InvoiceViewModel();
-        expectedIvm.setItemId(1);
-        expectedIvm.setCity("New York");
-        expectedIvm.setQuantity(5);
-        expectedIvm.setCustomerName("Josh");
-        expectedIvm.setItemId(2);
-        expectedIvm.setItemType("type");
-        expectedIvm.setState("NY");
-        expectedIvm.setProcessingFee(BigDecimal.valueOf(1.99));
-        expectedIvm.setTax(BigDecimal.valueOf(12.99));
-        expectedIvm.setStreet("fake st");
-        expectedIvm.setSubtotal(BigDecimal.valueOf(100.45));
-        expectedIvm.setTotal(BigDecimal.valueOf(113.15));
-        expectedIvm.setZipcode("11111");
-        expectedIvm.setUnitPrice(BigDecimal.valueOf(12.99));
+        invoice.setItemId(1);
+        invoice.setCity("New York");
+        invoice.setQuantity(5);
+        invoice.setCustomerName("John");
+        invoice.setItemId(2);
+        invoice.setItemType("type");
+        invoice.setState("NY");
+        invoice.setProcessingFee(BigDecimal.valueOf(1.99));
+        invoice.setTax(BigDecimal.valueOf(12.99));
+        invoice.setStreet("123 ave");
+        invoice.setSubtotal(BigDecimal.valueOf(100.45));
+        invoice.setTotal(BigDecimal.valueOf(113.15));
+        invoice.setZipcode("11111");
+        invoice.setUnitPrice(BigDecimal.valueOf(12.99));
 
 
 
@@ -229,10 +230,10 @@ public class ServiceLayerTest {
     }
 
     @Test
-    public void shouldValidateOrderRequest(){
+    public void validateOrderRequestValidatesValidOrder(){
         InvoiceViewModel invoice = new InvoiceViewModel();
-        invoice.setCustomerName("Alice Johnson");
-        invoice.setStreet("789 Pine St");
+        invoice.setCustomerName("John");
+        invoice.setStreet("123 ave");
         invoice.setCity("Villageville");
         invoice.setState("VA");
         invoice.setZipcode("54321");
@@ -246,41 +247,62 @@ public class ServiceLayerTest {
             fail("Exception thrown for valid input");
         }
     }
-//    @Test
-//    public void validateOrderRequestThrowsItemNotFound(){
-//        InvoiceViewModel invoice = new InvoiceViewModel();
-//        invoice.setCustomerName("Alice Johnson");
-//        invoice.setStreet("789 Pine St");
-//        invoice.setCity("Villageville");
-//        invoice.setState("VA");
-//        invoice.setZipcode("54321");
-//        invoice.setItemType("Game");
-//        invoice.setItemId(3);
-//        invoice.setQuantity(5);
-//
-//        try {
-//            service.validateOrderRequest(invoice);
-//            fail("Expected NotFoundException to be thrown");
-//        } catch (Exception e) {
-//            assertTrue(e instanceof NotFoundException, "Expected NotFoundException but got " + e.getClass().getSimpleName());
-//        }
-//    }
+    @Test
+    public void validateOrderRequestThrowsItemNotFound(){
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setCustomerName("John");
+        invoice.setStreet("123 ave");
+        invoice.setCity("New York");
+        invoice.setState("NY");
+        invoice.setZipcode("11111");
+        invoice.setItemType("Game");
+        invoice.setItemId(3);
+        invoice.setQuantity(5);
 
+        try {
+            service.validateOrderRequest(invoice);
+            fail("Expected NotFoundException to be thrown");
+        } catch (Exception e) {
+            assertTrue(e instanceof NotFoundException, "Expected NotFoundException but got " + e.getClass().getSimpleName());
+        }
+    }
+    @Test
+    public void validateOrderRequestThrowsIllegalArgumentExceptionForWrongItemType(){
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setCustomerName("John");
+        invoice.setStreet("123 ave");
+        invoice.setCity("New York");
+        invoice.setState("NY");
+        invoice.setZipcode("11111");
+        invoice.setItemType("Product");
+        invoice.setItemId(1);
+        invoice.setQuantity(5);
 
+        try {
+            service.validateOrderRequest(invoice);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
-    //  TShirt API Tests
+    @Test
+    public void validateOrderRequestThrowsIllegalArgumentExceptionForTooLargeQuantity(){
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setCustomerName("John");
+        invoice.setStreet("123 ave");
+        invoice.setCity("New York");
+        invoice.setState("NY");
+        invoice.setZipcode("11111");
+        invoice.setItemType("Game");
+        invoice.setItemId(1);
+        invoice.setQuantity(55);
 
-
-
-
-    // Console API Tests
-
-
-
-
-    // Game API Tests
-
-
+        try {
+            service.validateOrderRequest(invoice);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
 
 
     //  Helper
