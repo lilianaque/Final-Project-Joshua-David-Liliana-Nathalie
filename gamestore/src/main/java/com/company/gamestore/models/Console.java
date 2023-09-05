@@ -3,6 +3,9 @@ package com.company.gamestore.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
@@ -12,11 +15,27 @@ public class Console {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "console_id")
     private int consoleID;
+
+    @NotNull
     private String manufacturer;
+    @NotNull
     private String model;
+
+    @Column(name = "memory_amount")
+    @NotNull
     private String memoryAmount;
+
+    @Size(max = 20)
+    @NotNull
+    private String processor;
+
+    @Digits(integer = 5, fraction = 2)
+    @NotNull
     private BigDecimal price;
+
+    @NotNull
     private int quantity;
 
 
@@ -66,5 +85,12 @@ public class Console {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public String getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
     }
 }

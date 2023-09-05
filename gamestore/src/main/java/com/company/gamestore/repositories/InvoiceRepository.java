@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface InvoiceRepository  extends JpaRepository<Invoice, Integer> {
-    List<Invoice> findInvoiceByName(String name);
+    List<Invoice> findByName(String name);
 
 }
