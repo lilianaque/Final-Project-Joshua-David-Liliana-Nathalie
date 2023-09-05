@@ -129,11 +129,6 @@ public class ServiceLayer {
     }
 
     //   TShirt API
-//    @Autowired
-//    public ServiceLayer(TShirtsRepository tShirtsRepository) {
-//        this.tShirtsRepository = tShirtsRepository;
-//    }
-
     public TShirt saveTShirt(TShirt tShirt) {
         return tShirtsRepository.save(tShirt);
     }
@@ -165,6 +160,9 @@ public class ServiceLayer {
 
 
     //   Console API
+    public Console saveConsole(Console console) {
+        return consoleRepository.save(console);
+    }
     public Console findConsoleById(int id){
         Optional<Console> consoleOptional = consoleRepository.findById(id);
         return consoleOptional.isPresent() ? consoleOptional.get() : null;
@@ -182,12 +180,11 @@ public class ServiceLayer {
         consoleRepository.deleteById(id);
     }
 
+    public List<Console> findConsoleByManufacturer(Integer manufacturerId) {
+        return consoleRepository.findByManufacturer(manufacturerId);
+    }
 
     //   Game API
-
-
-
-
     public void validateOrderRequest(InvoiceViewModel viewModel) {
 
         String itemType = viewModel.getItemType();

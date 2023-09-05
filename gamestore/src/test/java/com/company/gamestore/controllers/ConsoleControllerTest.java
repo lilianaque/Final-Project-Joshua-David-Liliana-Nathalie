@@ -1,7 +1,7 @@
 package com.company.gamestore.controllers;
 
 import com.company.gamestore.models.Console;
-import com.company.gamestore.repositories.ConsoleRepository;
+import com.company.gamestore.repositories.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,17 +25,29 @@ public class ConsoleControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper mapper;
+    @MockBean
+    ConsoleRepository consoleRepository;
 
     @MockBean
-    private ConsoleRepository consoleRepository;
+    GameRepository gameRepository;
+
+    @MockBean
+    InvoiceRepository invoiceRepository;
+    @MockBean
+    TShirtsRepository tShirtsRepository;
+    @MockBean
+    FeeRepository feeRepository;
+
+    @MockBean
+    TaxRepository taxRepository;
     private Console console;
 
     @BeforeEach
     public void setUp() {
     }
+
+    @Autowired
+    private ObjectMapper mapper;
 
     // Create
     @Test
