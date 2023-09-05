@@ -65,7 +65,4 @@ public class ConsoleController {
     public List<Console> getBooksByManufacturerId(@PathVariable int manufacturerId) {
         return consoleRepository.findByManufacturer(manufacturerId);
     }
-
-
-
 }

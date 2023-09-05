@@ -1,0 +1,6 @@
+com/company/gamestore/service/ServiceLayerTest.class
+com/company/gamestore/repositories/GameRepositoryTest.class
+com/company/gamestore/controllers/GameControllerTest.class
+com/company/gamestore/controllers/ConsoleControllerTest.class
+com/company/gamestore/GamestoreApplicationTests.class
+com/company/gamestore/controllers/TShirtsControllerTest.class
