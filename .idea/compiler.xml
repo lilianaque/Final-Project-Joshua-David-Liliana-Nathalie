@@ -7,14 +7,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gamestore" />
+        <module name="authorization-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="authorization-service" target="1.8" />
       <module name="summative" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="authorization-service" options="-parameters" />
       <module name="gamestore" options="-parameters" />
     </option>
   </component>
